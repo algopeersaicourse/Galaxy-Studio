@@ -33,7 +33,11 @@ export const MusicTutor: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const apiKey = process.env.GEMINI_API_KEY || (import.meta as any).env?.VITE_GEMINI_API_KEY;
+      if (!apiKey) {
+        throw new Error("MISSING_API_KEY");
+      }
+      const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: messages.concat({ role: 'user', content: userMessage }).map(m => ({
@@ -46,9 +50,13 @@ export const MusicTutor: React.FC = () => {
       });
 
       setMessages(prev => [...prev, { role: 'model', content: response.text || "The cosmos is silent on this one. Could you rephrase?" }]);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Gemini Error:', error);
-      setMessages(prev => [...prev, { role: 'model', content: "A solar flare interrupted our connection. Please try again." }]);
+      if (error.message === 'MISSING_API_KEY') {
+        setMessages(prev => [...prev, { role: 'model', content: "### Greetings!\n\nI am currently running in a galaxy without its energy key. To activate my AI tutoring capabilities on your Vercel deployment, please ask Benjamin or configure the **`GEMINI_API_KEY`** (or **`VITE_GEMINI_API_KEY`**) in your Vercel Project Environment Settings! This will power up my cosmic circuits so we can learn to play together." }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'model', content: "A solar flare interrupted our connection. Please try again." }]);
+      }
     } finally {
       setIsLoading(false);
     }

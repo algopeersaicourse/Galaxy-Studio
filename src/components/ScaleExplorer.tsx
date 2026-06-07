@@ -9,10 +9,11 @@ export const ScaleExplorer: React.FC = () => {
   const [rootNote, setRootNote] = useState(NOTES[0]);
 
   const getScaleNotes = () => {
-    const rootIndex = NOTES.findIndex(n => n.name === rootNote.name);
+    const baseNotes = NOTES.slice(0, 12);
+    const rootIndex = baseNotes.findIndex(n => n.name === rootNote.name);
     return selectedScale.intervals.map(interval => {
-      const index = (rootIndex + interval) % NOTES.length;
-      return NOTES[index];
+      const index = (rootIndex + interval) % 12;
+      return baseNotes[index];
     });
   };
 
@@ -27,7 +28,7 @@ export const ScaleExplorer: React.FC = () => {
             <h3 className="font-serif italic text-xl">Select a Root</h3>
           </div>
           <div className="grid grid-cols-4 gap-2">
-            {NOTES.map(note => (
+            {NOTES.slice(0, 12).map(note => (
               <button
                 key={note.name}
                 onClick={() => setRootNote(note)}
@@ -38,7 +39,7 @@ export const ScaleExplorer: React.FC = () => {
                     : "bg-white/5 hover:bg-white/10 text-white/60"
                 )}
               >
-                {note.name}
+                {note.name.replace(/\d+$/, '')}
               </button>
             ))}
           </div>
@@ -75,7 +76,7 @@ export const ScaleExplorer: React.FC = () => {
       <div className="lg:col-span-2 glass p-8 rounded-3xl flex flex-col justify-between">
         <div>
           <div className="flex items-baseline gap-3 mb-2">
-            <h2 className="text-4xl font-serif italic">{rootNote.name} {selectedScale.name}</h2>
+            <h2 className="text-4xl font-serif italic">{rootNote.name.replace(/\d+$/, '')} {selectedScale.name}</h2>
             <span className="text-xs text-white/30 uppercase tracking-widest">Scale Visualization</span>
           </div>
           <p className="text-white/60 text-sm leading-relaxed max-w-md">
@@ -93,7 +94,7 @@ export const ScaleExplorer: React.FC = () => {
               className="relative group"
             >
               <div className="w-16 h-16 rounded-full glass flex items-center justify-center border-white/20 group-hover:border-galaxy-accent transition-colors">
-                <span className="font-serif italic text-xl">{note.name}</span>
+                <span className="font-serif italic text-xl">{note.name.replace(/\d+$/, '')}</span>
               </div>
               <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/20">
                 {i + 1}
