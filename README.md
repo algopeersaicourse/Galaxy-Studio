@@ -1,5 +1,5 @@
 <div align="center">
-![image alt] ()
+![image alt] (https://github.com/algopeersaicourse/Galaxy-Studio/blob/f6a27f394c76a7cc5ccf0fb85d48d77652b73a01/Screenshot%202026-06-28%20174751.png)
 </div>
 
 # Run and deploy your AI Studio app
