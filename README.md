@@ -1,6 +1,5 @@
 <div align="center">
-![image alt] (image url)
-
+![image alt] ()
 </div>
 
 # Run and deploy your AI Studio app
