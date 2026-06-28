@@ -1,5 +1,5 @@
 <div align="center">
-![image alt] (https://github.com/algopeersaicourse/Galaxy-Studio/blob/f6a27f394c76a7cc5ccf0fb85d48d77652b73a01/Screenshot%202026-06-28%20174751.png)
+<img width="1200" height="475" alt="GHBanner" src="your permalink"/>
 </div>
 
 # Run and deploy your AI Studio app
